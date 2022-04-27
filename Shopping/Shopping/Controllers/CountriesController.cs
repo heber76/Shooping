@@ -336,8 +336,9 @@ namespace Shopping.Controllers
             }
 
             State state = await _context.States
+                .Include(s => s.Country)
                 .Include(s => s.Cities)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(s => s.Id == id);
             if (state == null)
             {
                 return NotFound();
