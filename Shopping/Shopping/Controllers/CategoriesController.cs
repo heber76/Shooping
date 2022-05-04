@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Data;
 using Shopping.Data.Entities;
 
 namespace Shopping.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoriesController: Controller
     {
         private readonly DataContext _context;
@@ -30,7 +32,7 @@ namespace Shopping.Controllers
             return View();
         }
 
-        
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Category category)
@@ -62,7 +64,7 @@ namespace Shopping.Controllers
             return View(category);
         }
 
-
+  
         // GET: Countries/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -82,6 +84,8 @@ namespace Shopping.Controllers
         // POST: Countries/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Category category)
@@ -157,6 +161,7 @@ namespace Shopping.Controllers
         }
 
         // POST: Countries/Delete/5
+      
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
